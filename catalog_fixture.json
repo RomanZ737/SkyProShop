@@ -1,0 +1,148 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 10,
+    "fields": {
+        "name": "Samsung Galaxy 1",
+        "description": "Самый первый телефон",
+        "image": "",
+        "category": 1,
+        "price": 4000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+        "name": "Samsung Galaxy 2",
+        "description": "Самый второй телефон",
+        "image": "",
+        "category": 1,
+        "price": 5000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 12,
+    "fields": {
+        "name": "Samsung Galaxy 3",
+        "description": "Самый третий телефон",
+        "image": "",
+        "category": 1,
+        "price": 6000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 13,
+    "fields": {
+        "name": "LG 1",
+        "description": "Самый первый телевизор",
+        "image": "",
+        "category": 2,
+        "price": 14000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 14,
+    "fields": {
+        "name": "LG 2",
+        "description": "Самый второй телевизор",
+        "image": "",
+        "category": 2,
+        "price": 15000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 15,
+    "fields": {
+        "name": "LG 3",
+        "description": "Самый третий телевизор",
+        "image": "",
+        "category": 2,
+        "price": 16000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 16,
+    "fields": {
+        "name": "LG 44",
+        "description": "Самый новый телевизор",
+        "image": "",
+        "category": 2,
+        "price": 100000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 18,
+    "fields": {
+        "name": "Samsung Galaxy 2",
+        "description": "самый второй телефон",
+        "image": "",
+        "category": 1,
+        "price": 5000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 19,
+    "fields": {
+        "name": "Samsung Galaxy 3",
+        "description": "самый третий телефон",
+        "image": "",
+        "category": 1,
+        "price": 6000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 20,
+    "fields": {
+        "name": "LG 1",
+        "description": "самый первый теоевизор",
+        "image": "",
+        "category": 2,
+        "price": 77000.0,
+        "created_at": "2026-05-24",
+        "updated_at": "2026-05-24"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Телефоны",
+        "description": "Любые мобильные телефоны"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Телевизоры",
+        "description": "Любые домашние телевизоры"
+    }
+}
+]
