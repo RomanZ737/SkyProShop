@@ -4,9 +4,9 @@ from .models import Product, Contacts
 
 
 def home(request):
-    for product in Product.objects.all().order_by('-created_at')[:5]:
-        print(product.name)
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {'products': products}
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
@@ -23,4 +23,13 @@ def contacts(request):
                            'tax_num': contacts.tax_num,
                            'address': contacts.address,})
 
+def product_detail(request, product_id):
+    print(product_id)
+    test = Product.objects.all()
+    for product in test:
+        print(product.id)
+    product = Product.objects.get(id=product_id)
+
+    context = {'product': product}
+    return render(request, 'catalog/product_detail.html', context=context)
 
