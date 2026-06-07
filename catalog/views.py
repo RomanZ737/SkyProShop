@@ -1,35 +1,54 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# from django.shortcuts import render
+# from django.http import HttpResponse
 from .models import Product, Contacts
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
 
-def home(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'catalog/home.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
 
 
-def contacts(request):
-    if request.method == "POST":
-        name = request.POST['name']
-        phone = request.POST['phone']
-        message = request.POST['message']
-        return HttpResponse(f'Уважаемый, {name}, Ваше сообщение получено\n'
-                            f'Мы свяжемся с вами по телефону: {phone}')
-    contacts = Contacts.objects.first()
-    print(contacts.country, contacts.tax_num, contacts.address)
-    return render(request, 'catalog/contacts.html',
-                  context={'country': contacts.country,
-                           'tax_num': contacts.tax_num,
-                           'address': contacts.address,})
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
 
-def product_detail(request, product_id):
-    print(product_id)
-    test = Product.objects.all()
-    for product in test:
-        print(product.id)
-    product = Product.objects.get(id=product_id)
 
-    context = {'product': product}
-    return render(request, 'catalog/product_detail.html', context=context)
+class ContactsListView(ListView):
+    model = Contacts
+    template_name = 'catalog/contacts.html'
+    context_object_name = 'contacts'
 
+
+# def home(request):
+#     products = Product.objects.all()
+#     context = {'products': products}
+#     return render(request, 'catalog/home.html', context)
+#
+#
+# def contacts(request):
+#     if request.method == "POST":
+#         name = request.POST['name']
+#         phone = request.POST['phone']
+#         message = request.POST['message']
+#         return HttpResponse(f'Уважаемый, {name}, Ваше сообщение получено\n'
+#                             f'Мы свяжемся с вами по телефону: {phone}')
+#     contacts = Contacts.objects.first()
+#     print(contacts.country, contacts.tax_num, contacts.address)
+#     return render(request, 'catalog/contacts.html',
+#                   context={'country': contacts.country,
+#                            'tax_num': contacts.tax_num,
+#                            'address': contacts.address,})
+#
+# def product_detail(request, product_id):
+#     print(product_id)
+#     test = Product.objects.all()
+#     for product in test:
+#         print(product.id)
+#     product = Product.objects.get(id=product_id)
+#
+#     context = {'product': product}
+#     return render(request, 'catalog/product_detail.html', context=context)
+#
