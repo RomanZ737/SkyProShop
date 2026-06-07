@@ -1,0 +1,32 @@
+<!-- home.html -->
+{% extends "catalog/base.html" %}
+
+{% block title %}Список постов{% endblock %}
+
+{% block content %}
+
+    {% if posts|length > 0 %}
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center text-primary fw-bold">
+          Посты
+          <span class="text-primary fw-bold">Просмотры</span>
+        </li>
+          {% for post in posts %}
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a href="{% url 'blog:post_detail' post.pk %}" class="text-decoration-none">
+              {{ post.title }}
+              </a>
+              <span class="badge text-bg-primary rounded-pill">{{post.views_number}}</span>
+            </li>
+          {% endfor %}
+      </ul>
+    {% else %}
+      <p>Посты отсутствуют</p>
+  {% endif %}
+<div class="col-4">
+  <a class="btn btn-primary m-lg-4" href="{% url 'blog:post_create' %}" role="button">+ Добавить пост
+  </a>
+</div>
+
+{% endblock %}
