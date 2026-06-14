@@ -30,7 +30,13 @@
                 </tr>
         </table>
     </div>
-
+<div class="col-4 m-md-4">
+      <p class="fs-4 text-start">
+        <a class="btn btn-secondary m-lg-2" href="{% url 'catalog:product_list' %}">Вернуться</a>
+        <a class="btn btn-primary m-lg-2" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+        <a class="btn btn-danger m-lg-2" href="{% url 'catalog:product_delete' product.pk %}">Удалить</a>
+      </p>
+    </div>
 </div>
 </div>
 {% endblock %}

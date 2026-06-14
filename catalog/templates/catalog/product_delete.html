@@ -1,0 +1,13 @@
+<!-- home.html -->
+{% extends "catalog/base.html" %}
+
+{% block title %}Удалить продукт {{ product.name }}{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+</form>
+
+{% endblock %}
