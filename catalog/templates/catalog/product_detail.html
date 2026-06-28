@@ -35,7 +35,7 @@
         <a class="btn btn-secondary" href="{% url 'catalog:product_list' %}">Вернуться</a>
 
         {% if user.is_authenticated %}
-            {% if product.owner == user%}
+            {% if perms.catalog.change_product or product.owner == user%}
             <a class="btn btn-primary" href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
             {% endif %}
         {% endif %}

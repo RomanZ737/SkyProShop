@@ -39,11 +39,19 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:product_list')
+    permission_required = 'catalog.change_product'
+
+    def has_permission(self):
+        if super().has_permission():
+            return True
+        obj = self.get_object()  # self.get_object() достаёт продукт по pk из URL
+        return self.request.user == obj.owner
+
 
     def get_success_url(self):
         return reverse_lazy('catalog:product_detail', args=[self.kwargs.get('pk')])

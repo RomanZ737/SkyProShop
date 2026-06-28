@@ -6,7 +6,21 @@
         "name": "Product Moderators",
         "permissions": [
             41,
+            26,
             27
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "Content Manager",
+        "permissions": [
+            33,
+            34,
+            35,
+            36
         ]
     }
 }

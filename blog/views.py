@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from .models import Post
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.mail import send_mail
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class PostListView(ListView):
@@ -14,12 +15,12 @@ class PostListView(ListView):
         return queryset.filter(is_active=True)
 
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'content']
     success_url = reverse_lazy('blog:post_list')
     template_name = 'blog/post_form.html'
-
+    permission_required = 'blog.add_post'
 
 class PostDetailView(DetailView):
     model = Post
@@ -41,17 +42,19 @@ class PostDetailView(DetailView):
         return self.object
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(PermissionRequiredMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('blog:post_list')
+    permission_required = 'blog.change_post'
 
     def get_success_url(self):
         return reverse_lazy('blog:post_detail', args=[self.kwargs.get('pk')])
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
     success_url = reverse_lazy('blog:post_list')
+    permission_required = 'blog.delete_post'
 

@@ -22,8 +22,12 @@
     <div class="col-4 m-md-4">
       <p class="fs-4 text-start">
         <a class="btn btn-secondary m-lg-2" href="{% url 'blog:post_list' %}">Вернуться</a>
+      {% if perms.blog.change_post%}
         <a class="btn btn-primary m-lg-2" href="{% url 'blog:post_update' post.pk %}">Редактировать</a>
+      {% endif %}
+      {% if perms.blog.delete_post%}
         <a class="btn btn-danger m-lg-2" href="{% url 'blog:post_delete' post.pk %}">Удалить</a>
+      {% endif %}
       </p>
     </div>
 </div>
