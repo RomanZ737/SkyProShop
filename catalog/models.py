@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 
 class Category(models.Model):
@@ -16,6 +17,7 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Название продукта')
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=1)
     description = models.TextField(verbose_name='Описание продукта')
     image = models.ImageField(upload_to='images/', null=True,
                               default='images/default_product.jpg', verbose_name='Изображение продукта')
@@ -23,6 +25,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='Цена за покупку')
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+    is_published = models.BooleanField(default=False, verbose_name='Признак публикации')
 
     def __str__(self):
         return f'{self.name} {self.price} {self.category} {self.description}'
@@ -31,7 +34,9 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['name']
-
+        permissions = [
+            ('can_unpublish_product', 'Can unpublish a product'),
+        ]
 
 class Contacts(models.Model):
     country = models.CharField(max_length=150, verbose_name="Название страны")

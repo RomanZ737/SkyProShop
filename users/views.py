@@ -36,7 +36,10 @@ class RegisterView(CreateView):
         message = 'Спасибо, что зарегистрировались в нашем сервисе!'
         recipient_list = [user_email]
         from_email = 'pomanz@mail.ru'
-        send_mail(subject, message, from_email, recipient_list)
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+        except Exception as e:
+            print(e)
 
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
