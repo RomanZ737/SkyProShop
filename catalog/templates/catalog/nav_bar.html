@@ -6,6 +6,17 @@
         <a class="p-2 btn btn-outline-primary" href="/product/create/">+ Добавить товар</a>
     {% endif %}
     <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
+    <div class="dropdown">
+        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Категории
+        </a>
+
+        <ul class="dropdown-menu">
+            {% for category in category_list %}
+                <li><a class="dropdown-item" href="{% url 'catalog:product_by_category' category.pk %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
     <a class="p-2 btn btn-outline-primary" href="/post_list/">Блог</a>
     {% if user.is_authenticated %}
         <form method="post" action="{% url 'users:logout' %}" class="m-0">

@@ -1,13 +1,16 @@
 # from django.shortcuts import render
 # from django.http import HttpResponse
 from django.http import HttpResponseForbidden
-
-from .models import Product, Contacts
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from .models import Product, Contacts, Category
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
 from .forms import ProductForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
+from .services import CategoryService
+from django.core.cache import cache
 
 
 class ProductListView(ListView):
@@ -15,7 +18,19 @@ class ProductListView(ListView):
     template_name = 'catalog/home.html'
     context_object_name = 'products'
 
+    def get_queryset(self):
+        queryset = cache.get('products_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('products_queryset', queryset, 60 * 15)  # Кешируем данные на 15 минут
+        return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
+
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product_detail.html'
@@ -26,6 +41,11 @@ class ContactsListView(ListView):
     model = Contacts
     template_name = 'catalog/contacts.html'
     context_object_name = 'contacts'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -82,6 +102,18 @@ class PublishProductView(LoginRequiredMixin, View):
         product.save()
         return redirect('catalog:product_list')
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
+class ProductByCategoryView(View):
+    def get(self, request, pk):
+        products = CategoryService.get_product_list_by_category(pk)
+        category_list = CategoryService.get_category_list()
+        category = get_object_or_404(Category, pk=pk)
+        return render(request, 'catalog/product_by_category.html',
+                      {
+                          'products': products,
+                          'category_list': category_list,
+                          'category': category
+                      })
 
 # def home(request):
 #     products = Product.objects.all()

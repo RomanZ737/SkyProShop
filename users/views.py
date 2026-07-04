@@ -6,11 +6,17 @@ from django.core.mail import send_mail
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import CustomUser
 from django.contrib.auth import login
+from catalog.services import CategoryService
 
 
 class CustomLoginView(LoginView):
     template_name = 'users/login.html'
     success_url = reverse_lazy('catalog:product_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
 
 
 
@@ -18,11 +24,22 @@ class CustomLogoutView(LogoutView):
     def get_next_page(self):
         return reverse_lazy('login')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
+
 
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('catalog:product_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
+
 
     def form_valid(self, form):
         user = form.save()
@@ -51,3 +68,8 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = CategoryService.get_category_list()
+        return context
