@@ -1,0 +1,19 @@
+<!-- login.html -->
+{% extends "catalog/base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+<h2>Регистрация</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if object %}
+      <button type="submit">Сохранить</button>
+    {% else %}
+      <button type="submit">Зарегистрироваться</button>
+    {% endif %}
+  </form>
+
+{% endblock %}

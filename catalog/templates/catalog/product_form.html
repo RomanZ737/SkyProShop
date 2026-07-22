@@ -1,0 +1,22 @@
+<!-- home.html -->
+{% extends "catalog/base.html" %}
+
+{% block title %}Детали продукта {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="col-6 align-content-center container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary m-lg-1" href="{% url 'catalog:product_create' %}" role="button">
+            {% if object %}
+              Сохранить
+            {% else %}
+              Создать
+            {% endif %}
+          </button>
+        <a class="btn btn-secondary m-lg-1" href="{% url 'catalog:product_list' %}" role="button">Вернуться</a>
+    </form>
+</div>
+{% endblock %}
