@@ -1,0 +1,29 @@
+<!-- home.html -->
+{% extends "catalog/base.html" %}
+
+{% block title %}SkyProShop{% endblock %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+
+    <h1 class="display-4">SkyProShop</h1>
+    <p class="lead">SkyProShop - это отличный вариант хранения ваших плагинов и примеров кода, который вы бы хотели
+        продать</p>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+            {% if products|length > 0 %}
+                <div class="container">
+                    <div class="row">
+                {% for product in products %}
+                        {% include 'catalog/product_card.html' %}
+                {% endfor %}
+                    {% else %}
+                <p>Товары отсутствуют</p>
+            {% endif %}
+                    </div>
+                </div>
+    </div>
+</div>
+{% endblock %}
